@@ -1,5 +1,39 @@
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    سترايغت = sprites.createProjectileFromSprite(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . 6 6 6 6 6 . . . . . . 
+        . . . . . 6 f 6 f 6 . . . . . . 
+        . . . . . 6 f 6 f 6 . . . . . . 
+        . . . . . 6 6 6 6 6 . . . . . . 
+        . . . . . 6 f f f 6 . . . . . . 
+        . . . . . 6 6 6 6 6 . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, حلال, 0, -100)
+    سترايغت.startEffect(effects.fire)
+})
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
+    otherSprite.destroy(effects.fire, 50)
+    sprite.destroy(effects.fire, 1)
+    info.changeScoreBy(1)
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
+    scene.cameraShake(4, 500)
+    otherSprite.destroy(effects.disintegrate, 500)
+    sprite.startEffect(effects.fire, 500)
+    info.changeLifeBy(-1)
+})
 let غاي: Sprite = null
-let حلال = sprites.create(img`
+let سترايغت: Sprite = null
+let حلال: Sprite = null
+حلال = sprites.create(img`
     . . . b b b b b b b b b . . . . 
     . . b 1 d d d d d d d 1 b . . . 
     . b 1 1 1 1 1 1 1 1 1 1 1 b . . 
